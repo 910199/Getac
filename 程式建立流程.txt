@@ -1,0 +1,70 @@
+1.撰寫dockerfile(一個描述建置步驟的檔案)
+
+2.dockerfile 打包image需要的函式庫、環境，這邊使用官方的image
+
+Below using windows power shell:
+3.建立 Docker Image: 在dockerfile同目錄下利用"docker build . -t pg_image"
+創建叫做my-image的docker image.
+
+4.用docker images檢查 "my-image"是否存在於 docker repository中.
+
+
+5.實際執行成 Container: 
+
+"docker run -e POSTGRES_USER=me
+            -e POSTGRES_PASSWORD=123
+	    -p 5432:5432
+            --name pos_db 
+            pg_image"
+
+docker run --name pos_db -e POSTGRES_USER=me -e POSTGRES_PASSWORD=123 -p 5432:5432 pg_image
+
+6.-e: Docker 內部的環境變數，通常我們會用這個環境變數來說明運行時的設定，
+在此是設定POSTGRES_USER - 使用者名稱、
+POSTGRES_PASSWORD - 使用者密碼、
+--name: 命名該container為"pos_db"
+
+7.using "docker stop pos_db" to stop container,
+        "docker restart pos_db" to restart container.
+  using "docker ps -a" to view all container details. 
+  using "docker exec -it <container name> /bin/bash" to get a bash shell in the container.
+
+8. connect this with :
+
+Host:localhost
+port:5432
+username:user
+password:psw
+
+9. 將 Container 以 docker commit 轉換成新的映像
+--->     docker commit {CONTAINER ID}  {image_name}
+ex.     docker commit 18f0b7aaad09 pgdb/version_1
+
+10.把image另外儲存成檔案:
+   docker save  couchdb12 > couchdb12.tar
+
+   從檔案回復Image:
+   docker load [tar file]
+
+
+
+Visual Studio:
+
+app檔案位置:
+C:\Users\jeffery\source\repos\MyApp\MyApp\Models
+
+Migration 指令(using nuget package manager console):
+1.enable-migrations (啟動migration)
+2.add-migration first_migration(建立一個叫做first_migration之文件，描述如何建構DB)
+3.update-database(依據最新的migration file操作DB)
+
+Project to Docker image:
+1.prepare a dockerfile in the same directory of your csproj file (port 80)
+
+2.type "docker build . -t myservice" ("." means build here.) 
+
+3."docker run --name myapi --link pos_db -p 8080:80 myservice" 
+(mapping our 8080 port to 80 port in container)
+
+
+
