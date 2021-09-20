@@ -55,3 +55,18 @@ C. Name
 D. Total grade
 
 E. Rank
+
+
+
+
+**The process to make API webservice into a docker image, and run as a container**
+
+
+Try to wrap the api service into a container , and connect with the other container which has a PostgreSQL DB in it.
+
+Success to build a docker image of our api service, however, the container it produced has difficulty connected to the other container with PostgreSQL DB.
+
+(I think that the issues here are that we are not able to get a right connection between two containers, e.g. IP and its PORT  are different )
+
+Though two containers can be linked by command "--link", while running the image as a container.
+
