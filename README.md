@@ -37,7 +37,7 @@ Following we follow the restful style to build a REST API service:
 
 **-GET       url/grade/id/subject**  (to query the grade of a certain subject of a certain student)
 
-**-PATCH     url/grade/id**          (to modify the grade of a certain subject of a certain student)
+**-PATCH     url/grade/id/subject**          (to modify the grade of a certain subject of a certain student)
 
 **-Delete    url/grade/id**          (to delete the grade of a certain subject of a certain student)
 
